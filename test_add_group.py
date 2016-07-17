@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.action_chains import ActionChains
 import unittest
 
 
@@ -19,117 +18,63 @@ class test_add_group(unittest.TestCase):
     
     def test_test_add_group(self):
         wd = self.wd
-        # open home page
-        wd.get("http://localhost/addressbook/")
-        # login
-        wd.find_element_by_name("pass").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("pass")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("user")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("pass")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("pass")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        wd.find_element_by_id("LoginForm").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("user")).perform()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("label")).perform()
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//form[@id='LoginForm']//label[.='Password:']")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("LoginForm")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]")).perform()
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        # open group page
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("strong")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("hr")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("hr")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("label")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("nav")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("groups")).perform()
-        wd.find_element_by_link_text("groups").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("nav")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']//h1[.='Groups']")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("delete")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("new")).perform()
+        self.open_home_page(wd)
+        self.login(wd)
+        self.open_group_page(wd)
+        self.create_group(wd)
+        self.return_to_group_page(wd)
+        self.return_to_home_page(wd)
+        self.logout(wd)
+
+    def create_group(self, wd):
         # init group creation
         wd.find_element_by_name("new").click()
-        # fill group form
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']/form")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']//label[.='Parent group']")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("group_parent_id")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("group_name")).perform()
+        # fill forms
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys("1151522")
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']/form")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("group_header")).perform()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys("1151522sd")
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
         wd.find_element_by_name("group_header").send_keys("214151114sd")
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']/form")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("group_footer")).perform()
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("NEw gropu OK oK")
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']/form")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("submit")).perform()
         wd.find_element_by_name("group_footer").click()
-        # submit creation
+        # submit new group
         wd.find_element_by_name("submit").click()
-        # return to group page
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("html")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("footer")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("div.msgbox")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("group page")).perform()
-        wd.find_element_by_link_text("group page").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']/form")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("hr")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_xpath("//div[@id='content']//h1[.='Groups']")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("nav")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("add new")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("home")).perform()
-        # return to home page
-        wd.find_element_by_link_text("home").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("home")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("search-az")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("searchform")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_name("searchstring")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("content")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("nav")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("header")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_link_text("Logout")).perform()
-        # Logout
+
+    def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
         wd.find_element_by_name("pass").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("top")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_id("header")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("body")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("html")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("html")).perform()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("html")).perform()
         wd.find_element_by_name("user").click()
-        ActionChains(wd).move_to_element(wd.find_element_by_css_selector("html")).perform()
-    
+
+    def return_to_home_page(self, wd):
+        wd.find_element_by_link_text("home").click()
+
+    def return_to_group_page(self, wd):
+        wd.find_element_by_link_text("group page").click()
+
+    def open_group_page(self, wd):
+        wd.find_element_by_link_text("groups").click()
+
+    def login(self, wd):
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_id("LoginForm").click()
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
+
+    def open_home_page(self, wd):
+        wd.get("http://localhost/addressbook/")
+
     def tearDown(self):
         self.wd.quit()
 
