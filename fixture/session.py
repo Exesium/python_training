@@ -8,7 +8,7 @@ class SessionHelper:
 
     def login(self, username, password):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook/")
+        self.app.open_home_page()
         wd.find_element_by_name("pass").click()
         wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("user").click()

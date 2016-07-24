@@ -4,7 +4,7 @@ from fixture.application import Application
 from model.contact import Contact
 
 # Вынесем отдельный объект
-new_contact = Contact(firstname="Ivan", lastname="Petrov", nickname="Happy", title="Engineer",
+new_contact = Contact(firstname="Jon", lastname="Exesium", nickname="Happy", title="Engineer",
                              company="ATOL", address="Moscow", mobile="+7 985 966 44 24",
                              work="+7 (495) 730-74-20", email="i.petrov@gmail.com")
 
@@ -18,5 +18,5 @@ def app(request):
 
 def test_add_contact(app):
     app.session.login(username="admin", password="secret")
-    app.add_new_contact(new_contact)
+    app.contact.add_new(new_contact)
     app.session.logout()
