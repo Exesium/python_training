@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-from contact import Contact
-from application import Application
+from fixture.application import Application
+from model.contact import Contact
 
 # Вынесем отдельный объект
 new_contact = Contact(firstname="Ivan", lastname="Petrov", nickname="Happy", title="Engineer",
