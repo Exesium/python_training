@@ -30,7 +30,7 @@ class GroupHelper:
         # submit new group
         wd.find_element_by_name("submit").click()
 
-    def edit_1st_group(self, group):
+    def edit_1st(self, group):
         wd = self.app.wd
         self.open_group_page()
         # checking 1st element
@@ -52,7 +52,7 @@ class GroupHelper:
         # submit changes
         wd.find_element_by_name("update").click()
 
-    def del_1st_group(self):
+    def del_1st(self):
         wd = self.app.wd
         self.open_group_page()
         # checking 1st element
