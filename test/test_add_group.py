@@ -4,7 +4,7 @@ from model.group import Group
 
 def test_add_group(app):
     app.session.login(username="admin", password="secret")
-    app.group.create(Group(name="NEW_GROUP!", header="aaabbbccc", footer="New group OK"))
+    app.group.create(Group(name="NEW_GROUP!", footer="New group OK"))
     app.session.logout()
 
 
