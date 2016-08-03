@@ -39,12 +39,12 @@ class GroupHelper:
         # submit changes
         wd.find_element_by_name("update").click()
 
-    def change_group_forms(self, group_form, form):
+    def change_group_forms(self, form_name, form_value):
         wd = self.app.wd
-        if form is not None:
-            wd.find_element_by_name(group_form).click()
-            wd.find_element_by_name(group_form).clear()
-            wd.find_element_by_name(group_form).send_keys(form)
+        if form_value is not None:
+            wd.find_element_by_name(form_name).click()
+            wd.find_element_by_name(form_name).clear()
+            wd.find_element_by_name(form_name).send_keys(form_value)
 
     def del_1st(self):
         wd = self.app.wd
