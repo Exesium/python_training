@@ -6,6 +6,13 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
+    def change_group_forms(self, form_name, form_value):
+        wd = self.app.wd
+        if form_value is not None:
+            wd.find_element_by_name(form_name).click()
+            wd.find_element_by_name(form_name).clear()
+            wd.find_element_by_name(form_name).send_keys(form_value)
+
     def open_group_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
@@ -21,6 +28,7 @@ class GroupHelper:
         self.change_group_forms("group_footer", group.footer)
         # submit new group
         wd.find_element_by_name("submit").click()
+        self.app.open_home_page()
 
     def select_1st_group(self):
         wd = self.app.wd
@@ -38,13 +46,7 @@ class GroupHelper:
         self.change_group_forms("group_footer", group.footer)
         # submit changes
         wd.find_element_by_name("update").click()
-
-    def change_group_forms(self, form_name, form_value):
-        wd = self.app.wd
-        if form_value is not None:
-            wd.find_element_by_name(form_name).click()
-            wd.find_element_by_name(form_name).clear()
-            wd.find_element_by_name(form_name).send_keys(form_value)
+        self.app.open_home_page()
 
     def del_1st(self):
         wd = self.app.wd
@@ -52,5 +54,4 @@ class GroupHelper:
         self.select_1st_group()
         # delete-button clicking
         wd.find_element_by_name("delete").click()
-
-
+        self.app.open_home_page()

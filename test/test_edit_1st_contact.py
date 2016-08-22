@@ -8,6 +8,4 @@ new_contact = Contact(firstname="Jonny", middlename="W", lastname="Exesium", nic
 
 
 def test_edit_1st(app):
-    app.session.login(username="admin", password="secret")
     app.contact.edit_1st(new_contact)
-    app.session.logout()

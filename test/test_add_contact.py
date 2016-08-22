@@ -10,12 +10,8 @@ empty_contact = Contact(firstname="", middlename="", lastname="", nickname="", t
 
 
 def test_add_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.add_new(new_contact)
-    app.session.logout()
 
 
 def test_add_empty_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.add_new(empty_contact)
-    app.session.logout()
