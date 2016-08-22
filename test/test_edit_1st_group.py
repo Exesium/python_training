@@ -3,4 +3,6 @@ from model.group import Group
 
 
 def test_edit_1st_group(app):
+    if app.group.count() == 0:
+        app.group.create(Group(name="When_there_is_no_GROUP"))
     app.group.edit_1st(Group(name="CHANGED_GROUP!"))
