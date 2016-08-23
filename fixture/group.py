@@ -33,14 +33,21 @@ class GroupHelper:
         self.app.open_home_page()
         self.group_cache = None
 
-    def select_1st_group(self):
+    def select_1st_group(self, index):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
-    def edit_1st(self, group):
+    def select_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def edit_1st(self):
+        self.edit_by_index(0)
+
+    def edit_by_index(self, index, group):
         wd = self.app.wd
         self.open_group_page()
-        self.select_1st_group()
+        self.select_by_index(index)
         # edit-button clicking
         wd.find_element_by_name("edit").click()
         # editing forms
@@ -52,10 +59,13 @@ class GroupHelper:
         self.app.open_home_page()
         self.group_cache = None
 
-    def del_1st(self):
+    def del_1st_group(self):
+        self.del_by_index(0)
+
+    def del_by_index(self, index):
         wd = self.app.wd
         self.open_group_page()
-        self.select_1st_group()
+        self.select_by_index(index)
         # delete-button clicking
         wd.find_element_by_name("delete").click()
         self.app.open_home_page()
