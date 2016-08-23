@@ -39,12 +39,8 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
 
-    def first_contact_edit_page(self):
-        wd = self.app.wd
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
-
-    def edit_1st(self):
-        self.edit_by_index(0)
+    def edit_1st(self, con):
+        self.edit_by_index(0, con)
 
     def edit_by_index(self, index, con):
         wd = self.app.wd
