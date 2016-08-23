@@ -9,8 +9,7 @@ def test_del_1st_contact(app):
         app.contact.add_new(empty_contact)
     old_cs = app.contact.get_contact_list()
     app.contact.del_1st()
+    assert len(old_cs) - 1 == app.contact.count()
     new_cs = app.contact.get_contact_list()
-    assert len(old_cs) - 1 == len(new_cs)
     old_cs[0:1] = []
-    assert len(old_cs) == len(new_cs)
     assert sorted(old_cs, key=Contact.id_or_max) == sorted(new_cs, key=Contact.id_or_max)

@@ -15,7 +15,7 @@ def test_edit_1st(app):
     old_cs = app.contact.get_contact_list()
     app.contact.edit_1st(ch_contact)
     ch_contact.id = old_cs[0].id
+    assert len(old_cs) == app.contact.count()
     new_cs = app.contact.get_contact_list()
-    assert len(old_cs)  == len(new_cs)
     old_cs[0] = ch_contact
     assert sorted(old_cs, key=Contact.id_or_max) == sorted(new_cs, key=Contact.id_or_max)
