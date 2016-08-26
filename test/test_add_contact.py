@@ -8,8 +8,9 @@ empty_contact = Contact(firstname="", middlename="", lastname="", nickname="", t
 
 def test_add_contact(app):
     new_contact = Contact(firstname="Jon", middlename="S", lastname="Exesium", nickname="Happy", title="Engineer",
-                          company="ATOL", address="Moscow", mobile="+7 985 966 44 24", work="+7 (495) 730-74-20",
-                          email="i.petrov@gmail.com", b_day=3, b_month=2, b_year="1970")
+                          company="ATOL", address="Moscow", home="+7 (495) 012-34-34", work="+7 (495) 730-74-20",
+                          mobile="+7-985-966-44-24", fax="+7 (495) 730-74-22", email="i.petrov@gmail.com",
+                          b_day=3, b_month=2, b_year="1970", phone2="+74957307474")
     old_cs = app.contact.get_contact_list()
     app.contact.add_new(new_contact)
     assert len(old_cs) + 1 == app.contact.count()
@@ -18,5 +19,5 @@ def test_add_contact(app):
     assert sorted(old_cs, key=Contact.id_or_max) == sorted(new_cs, key=Contact.id_or_max)
 
 
-#def test_add_empty_contact(app):
+# def test_add_empty_contact(app):
 #    app.contact.add_new(empty_contact)
