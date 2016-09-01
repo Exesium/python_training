@@ -5,7 +5,8 @@ from random import randrange
 # Вынесем отдельный объект
 ch_contact = Contact(firstname="Jonny", middlename="W", lastname="Exesium", nickname="Happy", title="Engineer",
                      company="ATOL", address="Moscow", mobile="+7-985-966-44-24", work="+7 (495) 730-74-20",
-                     email="i.petrov@gmail.com", b_day=26, b_month=9, b_year="1982")
+                     email="i.petrov@gmail.com", email2="", email3="i.pet_rov3@gmail.com",
+                     b_day=26, b_month=9, b_year="1982")
 empty_contact = Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", address="",
                         mobile="", work="", email="", b_day=0, b_month=0, b_year="")
 

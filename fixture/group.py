@@ -33,7 +33,7 @@ class GroupHelper:
         self.app.open_home_page()
         self.group_cache = None
 
-    def select_1st_group(self, index):
+    def select_1st_group(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
@@ -41,8 +41,8 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
-    def edit_1st(self):
-        self.edit_by_index(0)
+    def edit_1st(self, group):
+        self.edit_by_index(0, group)
 
     def edit_by_index(self, index, group):
         wd = self.app.wd
@@ -85,6 +85,6 @@ class GroupHelper:
             self.group_cache = []
             for element in wd.find_elements_by_css_selector("span.group"):
                 text = element.text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.group_cache.append(Group(name=text, id=id))
+                identity = element.find_element_by_name("selected[]").get_attribute("value")
+                self.group_cache.append(Group(name=text, identity=identity))
         return list(self.group_cache)
