@@ -25,20 +25,21 @@ class Contact:
         self.b_day = b_day
         self.b_month = b_month
         self.b_year = b_year
-        self.id = identity
+        self.identity = identity
         self.phone2 = phone2
         self.all_emails = all_emails
         self.all_phones_from_homepage = all_phones_from_homepage
 
     def __repr__(self):
-        return "%s:%s %s" % (self.id, self.firstname, self.lastname)
+        return "%s:%s %s" % (self.identity, self.firstname, self.lastname)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname\
+        return (self.identity is None or other.identity is None or self.identity == other.identity) \
+               and self.firstname == other.firstname\
                and self.lastname == other.lastname
 
     def id_or_max(self):
-        if self.id:
-            return int(self.id)
+        if self.identity:
+            return int(self.identity)
         else:
             return maxsize
