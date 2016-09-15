@@ -5,24 +5,41 @@ import jsonpickle
 import os.path
 import pytest
 from fixture.application import Application
+from fixture.db import DbFixture
 
 fixture = None
 target = None
 
 
+def load_config(file):
+    global target
+    if target is None:
+        conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), file)
+        with open(conf) as f:
+            target = json.load(f)
+    return target
+
+
+
 @pytest.fixture
 def app(request):
     global fixture
-    global target
     browser = request.config.getoption("--browser")
-    if target is None:
-        conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), (request.config.getoption("--target")))
-        with open(conf) as f:
-            target = json.load(f)
+    web_conf = load_config(request.config.getoption("--target"))["web"]
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, baseurl=target['baseurl'])
-    fixture.session.ensure_login(username=target['username'], password=target['password'])
+        fixture = Application(browser=browser, baseurl=web_conf['baseurl'])
+    fixture.session.ensure_login(username=web_conf['username'], password=web_conf['password'])
     return fixture
+
+
+@pytest.fixture(scope="session")
+def db(request):
+    db_conf = load_config(request.config.getoption("--target"))["db"]
+    dbfixture = DbFixture(host=db_conf["host"], name=db_conf["name"], user=db_conf["user"], password=db_conf["password"])
+    def fin():
+        dbfixture.destroy()
+    request.addfinalizer(fin)
+    return dbfixture
 
 
 @pytest.fixture(scope="session", autouse=True)
