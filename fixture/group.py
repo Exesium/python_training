@@ -4,6 +4,8 @@ from model.group import Group
 
 class GroupHelper:
 
+    group_cache = None
+
     def __init__(self, app):
         self.app = app
 
@@ -59,6 +61,21 @@ class GroupHelper:
         self.app.open_home_page()
         self.group_cache = None
 
+    def edit_by_id(self, id, group):
+        wd = self.app.wd
+        self.open_group_page()
+        self.select_by_id(id)
+        # edit-button clicking
+        wd.find_element_by_name("edit").click()
+        # editing forms
+        self.change_group_forms("group_name", group.name)
+        self.change_group_forms("group_header", group.header)
+        self.change_group_forms("group_footer", group.footer)
+        # submit changes
+        wd.find_element_by_name("update").click()
+        self.app.open_home_page()
+        self.group_cache = None
+
     def del_1st_group(self):
         self.del_by_index(0)
 
@@ -76,8 +93,6 @@ class GroupHelper:
         self.open_group_page()
         return len(wd.find_elements_by_name("selected[]"))
 
-    group_cache = None
-
     def get_group_list(self):
         if self.group_cache is None:
             wd = self.app.wd
@@ -88,3 +103,16 @@ class GroupHelper:
                 identity = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, identity=identity))
         return list(self.group_cache)
+
+    def select_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+
+    def del_by_id(self, id):
+        wd = self.app.wd
+        self.open_group_page()
+        self.select_by_id(id)
+        # delete-button clicking
+        wd.find_element_by_name("delete").click()
+        self.app.open_home_page()
+        self.group_cache = None

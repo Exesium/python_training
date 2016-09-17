@@ -50,6 +50,11 @@ class ContactHelper:
     def edit_1st(self, con):
         self.edit_by_index(0, con)
 
+    def open_for_edit_contact_page_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[{}]/td[8]/a/img".format(index+2)).click()
+
     def edit_by_index(self, index, con):
         wd = self.app.wd
         # click edit button
@@ -82,10 +87,42 @@ class ContactHelper:
         self.app.open_home_page()
         self.contact_cache = None
 
-    def open_for_edit_contact_page_by_index(self, index):
+    def open_for_edit_contact_page_by_id(self, id):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[{}]/td[8]/a/img".format(index+2)).click()
+        wd.get("http://localhost/addressbook/edit.php?id={}".format(id))
+
+    def edit_by_id(self, id, con):
+        wd = self.app.wd
+        # click edit button
+        self.open_for_edit_contact_page_by_id(id)
+        # editing forms
+        self.change_contact_forms('firstname', con.firstname)
+        self.change_contact_forms('middlename', con.middlename)
+        self.change_contact_forms('lastname', con.lastname)
+        self.change_contact_forms('nickname', con.nickname)
+        self.change_contact_forms('title', con.title)
+        self.change_contact_forms('company', con.company)
+        self.change_contact_forms('address', con.address)
+        self.change_contact_forms('home', con.home)
+        self.change_contact_forms('mobile', con.mobile)
+        self.change_contact_forms('work', con.work)
+        self.change_contact_forms('fax', con.fax)
+        self.change_contact_forms('email', con.email)
+        self.change_contact_forms('email2', con.email2)
+        self.change_contact_forms('email3', con.email3)
+        if not wd.find_element_by_xpath("//div[@id='content']/form[1]/select[1]//option[12]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form[1]/select[1]//option[{0}]".format(con.b_day)).click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form[1]/select[2]//option[9]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form[1]/select[2]//option[{0}]".format(con.b_month)).click()
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(con.b_year)
+        self.change_contact_forms("phone2", con.phone2)
+        # submit changes
+        wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.app.open_home_page()
+        self.contact_cache = None
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -95,11 +132,21 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def select_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+
     def del_by_index(self, index):
         wd = self.app.wd
-        # checking 1st element
         self.select_by_index(index)
-        # delete-button clicking
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def del_by_id(self, id):
+        wd = self.app.wd
+        self.select_by_id(id)
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.app.open_home_page()

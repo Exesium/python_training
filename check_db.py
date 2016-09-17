@@ -1,19 +1,16 @@
-import mysql.connector
-import pymysql.cursors
+from fixture.db import DbFixture
+
 
 # conn = mysql.connector.connect(host='127.0.0.1', database='addressbook', user='root', password='')
-con2 = pymysql.connect(host='127.0.0.1', database='addressbook', user='root', password='')
 
+abc = DbFixture(host='127.0.0.1', name='addressbook', user='root', password='')
 
 try:
-    a = con2.get_server_info()
-    cur = con2.cursor()
-    cur.execute('select * from group_list')
-    for row in cur.fetchall():
+    currrr = abc.get_contact_list()
+    for row in currrr:
         print(row)
+    print(len(currrr))
+    print("----------------------------------------------------")
 
 finally:
-    con2.close()
-
-
-print(a)
+    abc.destroy()

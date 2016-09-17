@@ -1,4 +1,5 @@
 from model.group import Group
+from timeit import timeit
 
 
 def test_db_matches_ui(app, db):
