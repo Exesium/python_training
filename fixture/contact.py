@@ -21,6 +21,8 @@ class ContactHelper:
         wd = self.app.wd
         # add new contact
         wd.find_element_by_link_text("add new").click()
+        # temp solution
+        wd.find_element_by_xpath("//input[@name='quickadd']").click()
         # change_forms
         self.change_contact_forms("firstname", con.firstname)
         self.change_contact_forms("middlename", con.middlename)
@@ -59,6 +61,8 @@ class ContactHelper:
         wd = self.app.wd
         # click edit button
         self.open_for_edit_contact_page_by_index(index)
+        # temp solution
+        # wd.find_element_by_xpath("//input[@name='quickadd']").click()
         # editing forms
         self.change_contact_forms('firstname', con.firstname)
         self.change_contact_forms('middlename', con.middlename)
@@ -96,6 +100,8 @@ class ContactHelper:
         wd = self.app.wd
         # click edit button
         self.open_for_edit_contact_page_by_id(id)
+        # temp solution
+        # wd.find_element_by_xpath("//input[@name='quickadd']").click()
         # editing forms
         self.change_contact_forms('firstname', con.firstname)
         self.change_contact_forms('middlename', con.middlename)
@@ -134,12 +140,14 @@ class ContactHelper:
 
     def select_by_id(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+        # wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+        wd.find_element_by_xpath("//input[@id ='{}']".format(id)).click()
 
     def del_by_index(self, index):
         wd = self.app.wd
         self.select_by_index(index)
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.find_element_by_xpath("//div/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.app.open_home_page()
         self.contact_cache = None
@@ -147,7 +155,8 @@ class ContactHelper:
     def del_by_id(self, id):
         wd = self.app.wd
         self.select_by_id(id)
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.find_element_by_xpath("//div/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.app.open_home_page()
         self.contact_cache = None
