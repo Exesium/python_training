@@ -17,9 +17,10 @@ class Application:
         # else:
         #     raise ValueError("Unrecognized browser {}".format(browser))
         # *******************************************************************************
-        CHROME_PATH = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+        CHROME_PATH = "C:/Program Files (x86)/Google/Chrome Beta/Application/chrome.exe"
         webdriver.ChromeOptions.binary_location = CHROME_PATH
         self.wd = webdriver.Chrome(executable_path='drivers/chromedriver.exe')
+        self.wd.maximize_window()
         # *******************************************************************************
 
         self.wd.implicitly_wait(3)
