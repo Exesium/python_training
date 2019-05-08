@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from model.group import Group
 import random
+import pytest
+from model.group import Group
 
 
+@pytest.mark.skip
 def test_edit_group_name_by_id(app, db, json_groups, check_ui):
     group = json_groups
     if len(db.get_group_list()) == 0:

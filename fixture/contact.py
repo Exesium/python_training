@@ -141,7 +141,7 @@ class ContactHelper:
     def select_by_id(self, id):
         wd = self.app.wd
         # wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
-        wd.find_element_by_xpath("//input[@id ='{}']".format(id)).click()
+        wd.find_element_by_id(f'{id}').click()
 
     def del_by_index(self, index):
         wd = self.app.wd
